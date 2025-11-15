@@ -13,7 +13,7 @@ const Game = require('../models/Game');
  */
 router.post('/', async (req, res) => {
   try {
-    // 'req.body' contiene los datos que el frontend nos envía (ej: título, cover)
+    // 'req.body' contiene los datos que el frontend nos envía 
     const newGame = new Game({
       title: req.body.title,
       cover: req.body.cover,
@@ -22,10 +22,7 @@ router.post('/', async (req, res) => {
       completed: req.body.completed
     });
 
-    // Guardamos el juego nuevo en la base de datos
     const game = await newGame.save();
-
-    // Respondemos al frontend con el juego que acabamos de crear
     res.json(game);
 
   } catch (err) {
@@ -41,7 +38,6 @@ router.post('/', async (req, res) => {
  */
 router.get('/', async (req, res) => {
   try {
-    // Buscamos en la base de datos todos los juegos y los ordenamos por fecha
     const games = await Game.find().sort({ addedAt: -1 });
     
     // Respondemos con la lista de juegos
@@ -60,22 +56,21 @@ router.get('/', async (req, res) => {
  */
 router.put('/:id', async (req, res) => {
   try {
-    // Busca el juego por su ID (que viene en la URL)
+    // Busca el juego por su ID 
     const game = await Game.findById(req.params.id);
 
     if (!game) {
       return res.status(404).json({ msg: 'Juego no encontrado' });
     }
 
-    // Actualizamos el juego con los datos que vengan en el body
-    // 'new: true' hace que nos devuelva el juego actualizado
+
     const updatedGame = await Game.findByIdAndUpdate(
       req.params.id,
-      req.body, // Le pasaremos { completed: true } o { completed: false }
+      req.body, 
       { new: true }
     );
 
-    res.json(updatedGame); // Respondemos con el juego ya actualizado
+    res.json(updatedGame); 
 
   } catch (err) {
     console.error(err.message);
