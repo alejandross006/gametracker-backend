@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Este es el "molde" para cada juego en la base de datos
 const GameSchema = new Schema({
-  // Título del juego (texto y es obligatorio)
+
   title: {
     type: String,
     required: true
   },
-  // URL de la imagen de portada (texto y es obligatorio)
+  // URL de la imagen de portada 
   cover: {
     type: String,
     required: true
   },
-  // Si está completado o no (verdadero/falso)
+  // Si está completado o no 
   completed: {
     type: Boolean,
     default: false // Por defecto, un juego no está completado
